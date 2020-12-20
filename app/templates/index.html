@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Python Task</title>
+</head>
+<body>
+<div align="center">
+   <h1>Machine Learning Python Task</h1>
+   <h2>Upload a Resume</h2>
+
+<form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+        <p>
+            <input type="file" name="files[]" multiple="true" autocomplete="off" required>
+        </p>
+    </dl>
+    <p>
+        <br><br>
+
+        <input type="submit" value="Submit">
+    </p>
+</form>
+
+
+
+</div>
+
+
+        <div class="row" align="left">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 offset-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <span class="glyphicon glyphicon-list-alt"></span><b>Files</b></div>
+                    <br><br>
+                    <button type="button" class="pull-right btn btn-primary btn-lg" name="add" id="add">
+                        <span class="glyphicon glyphicon-cog"></span> Show
+                    </button>
+                    <br><br><br>
+
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-12">
+                            <table class="table table-sm mastertable">
+                              <tbody>
+                                <tr class="loader"><td colspan="20" style="text-align: center;"></td></tr>
+                              </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer"> </div>
+                </div>               
+            </div>
+        </div>
+
+
+            <div class="col-md-3"></div>
+            <div class="col-md-6 offset-md-6" align="center">
+                <div class="panel panel-default">
+                    <span class="glyphicon glyphicon-list-alt"></span><b>Resume Data Parsing</b></div>
+                    <br><br>
+                    <button type="button" class="pull-right btn btn-primary btn-lg" name="parse" id="parse">
+                        <span class="glyphicon glyphicon-cog"></span> Parse
+                    </button>
+                    <div class="loader hide" id="load"><i class="fa fa-refresh fa-spin fa-3x fa-fw" aria-hidden="true"></i></div>                    
+                    <br><br><br>
+
+            </div>               
+            <!-- </div> -->
+
+
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://www.jqueryscript.net/demo/Responsive-jQuery-News-Ticker-Plugin-with-Bootstrap-3-Bootstrap-News-Box/scripts/jquery.bootstrap.newsbox.min.js'></script>
+<!-- <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+ -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="
+sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+<script type="text/javascript">
+    
+    $('#add').on('click',function (){
+        //alert("data")
+        $("table.mastertable tbody").children().remove()
+        $.ajax({
+            type: "GET",
+            url :"/display",
+            success: function(data, status, xhr) {
+                    //console.log(data)
+                    data.forEach(function (arrayItem) {
+                        tmpl = "<tr> \
+                        <td>"+ arrayItem +"</td></tr>"             
+                        $("table.mastertable tbody").append(tmpl);
+                    });
+
+            },
+            error: function(err){
+                console.log(err.responseText)
+                alert('error. something went wrong')
+            }
+        });
+
+    });
+
+
+
+    $('#parse').on('click',function (){
+        //alert("data")
+        $.ajax({
+            type: "GET",
+            url :"/parse",
+            success: function(data, status, xhr) {
+                $(".loader").addClass('hide');
+                alert("parsing successful")
+
+            },
+            error: function(err){
+                console.log(err.responseText)
+                alert('error. something went wrong')
+            }
+        });
+
+    });
+
+
+
+</script>
+
+
+
+</body>
+</html>

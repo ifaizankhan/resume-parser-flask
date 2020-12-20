@@ -1,0 +1,20 @@
+version: "3.3"
+
+services:
+  mllearningpack:
+    image: mllearningpack
+    build:
+      context: .
+      dockerfile: Files/Dockerfile
+
+    volumes:
+      - ./source:/opt/python/src/mllearningpack
+      - ${HOME}/.gitconfig:/home/hello/.gitconfig
+
+    environment:
+      - "PROJECT=mllearningpack"
+      - "FLASK_APP=app.py"
+
+    ports:
+      - "2228:22"
+      - "5000:5000"
